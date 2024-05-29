@@ -4,7 +4,7 @@
 #include <2s2h/BenGui/UIWidgets.hpp>
 #include <graphic/Fast3D/gfx_pc.h>
 
-/*  Console Variables are grouped under gAdvancedResolution. (e.g. CVAR_PREFIX_ADVANCED_RESOLUTION ".Enabled")
+/*  Console Variables are grouped under CVAR_PREFIX_ADVANCED_RESOLUTION.
 
     The following cvars are used in Libultraship and can be edited here:
         - Enabled                                       - Turns Advanced Resolution Mode on.
@@ -107,7 +107,7 @@ void AdvancedResolutionSettingsWindow::DrawElement() {
         // Display HiDPI warning. (Remove this once we can definitively say it's fixed.)
         ImGui::TextColored(messageColor[MESSAGE_INFO],
                            ICON_FA_INFO_CIRCLE " These settings may behave incorrectly on Retina displays.");
-        ImGui::SeparatorText(" "); // was PaddedSeparator
+        ImGui::SeparatorText(""); // was PaddedSeparator
 #endif
 
         if (ImGui::CollapsingHeader("Original Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
