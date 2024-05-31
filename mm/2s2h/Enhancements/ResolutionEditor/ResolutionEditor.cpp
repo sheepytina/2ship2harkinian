@@ -26,10 +26,11 @@ namespace AdvancedResolutionSettings {
 enum setting { UPDATE_aspectRatioX, UPDATE_aspectRatioY, UPDATE_verticalPixelCount };
 
 const char* aspectRatioPresetLabels[] = {
-    "Off", "Custom", "Original (4:3)", "Widescreen (16:9)", "Nintendo 3DS (5:3)", "16:10 (8:5)", "Ultrawide (21:9)"
+    "Off",         "Custom",           "Original (4:3)",  "Widescreen (16:9)", "Nintendo 3DS (5:3)",
+    "16:10 (8:5)", "Ultrawide (21:9)", "Ultrawide (32:9)"
 };
-const float aspectRatioPresetsX[] = { 0.0f, 16.0f, 4.0f, 16.0f, 5.0f, 16.0f, 21.0f };
-const float aspectRatioPresetsY[] = { 0.0f, 9.0f, 3.0f, 9.0f, 3.0f, 10.0f, 9.0f };
+const float aspectRatioPresetsX[] = { 0.0f, 16.0f, 4.0f, 16.0f, 5.0f, 16.0f, 21.0f, 32.0f };
+const float aspectRatioPresetsY[] = { 0.0f, 9.0f, 3.0f, 9.0f, 3.0f, 10.0f, 9.0f, 9.0f };
 const int default_aspectRatio = 1; // Default combo list option
 
 const char* pixelCountPresetLabels[] = { "Custom",     "Native N64 (240p)", "2x (480p)",       "3x (720p)", "4x (960p)",
