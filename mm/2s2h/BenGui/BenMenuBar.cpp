@@ -208,13 +208,33 @@ void DrawSettingsMenu() {
         if (UIWidgets::BeginMenu("Graphics")) {
 
 #ifndef __APPLE__
-            if (UIWidgets::CVarSliderFloat("Internal Resolution: %f %%", CVAR_INTERNAL_RESOLUTION, 0.5f, 2.0f, 1.0f)) {
-                Ship::Context::GetInstance()->GetWindow()->SetResolutionMultiplier(
-                    CVarGetFloat(CVAR_INTERNAL_RESOLUTION, 1));
-            };
-            UIWidgets::Tooltip(
-                "Multiplies your output resolution by the value inputted, as a more intensive but effective "
-                "form of anti-aliasing");
+            bool placeholderVar = CVarGetInteger("PlaceholderVariableName", 0);
+            if (!placeholderVar) {
+                if (UIWidgets::CVarSliderFloat("Internal Resolution: %f %%", CVAR_INTERNAL_RESOLUTION, 0.5f, 2.0f,
+                                               1.0f)) {
+                    Ship::Context::GetInstance()->GetWindow()->SetResolutionMultiplier(
+                        CVarGetFloat(CVAR_INTERNAL_RESOLUTION, 1));
+                };
+                UIWidgets::Tooltip("Multiplies your output resolution by the value entered, as a more intensive but "
+                                   "effective form of anti-aliasing");
+            } else {
+                if (UIWidgets::CVarSliderInt("Internal Resolution: %d pixels vertical",
+                                             CVAR_PREFIX_ADVANCED_RESOLUTION ".VerticalPixelCount", 240, 2400, 480,
+                                             { .step = 240 })) {
+                    CVarSetInteger(CVAR_PREFIX_ADVANCED_RESOLUTION ".VerticalResolutionToggle", 1);
+                };
+                UIWidgets::Tooltip("Multiplies your output resolution by a factor of the N64 original resolution.");
+            }
+            ImGui::Text("Factor of...:");
+            if (ImGui::RadioButton("Window resolution", !placeholderVar)) {
+                CVarSetInteger("PlaceholderVariableName", 0);
+                CVarSetInteger(CVAR_PREFIX_ADVANCED_RESOLUTION ".Enabled", 0);
+            }
+            if (ImGui::RadioButton("Original N64 vertical resolution", placeholderVar)) {
+                CVarSetInteger("PlaceholderVariableName", 1);
+                CVarSetInteger(CVAR_PREFIX_ADVANCED_RESOLUTION ".VerticalResolutionToggle", 1);
+                CVarSetInteger(CVAR_PREFIX_ADVANCED_RESOLUTION ".Enabled", 1);
+            }
 #endif
 #ifndef __WIIU__
             if (UIWidgets::CVarSliderInt((CVarGetInteger(CVAR_MSAA_VALUE, 1) == 1) ? "Anti-aliasing (MSAA): Off"
